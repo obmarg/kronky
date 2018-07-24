@@ -211,7 +211,10 @@ defmodule Kronky.Payload do
   """
   def build_payload(%{errors: errors} = resolution, _config) do
     result = convert_to_payload({:error, errors})
-    Absinthe.Resolution.put_result(resolution, {:ok, result})
+    %{
+      Absinthe.Resolution.put_result(resolution, {:ok, result}) 
+      | errors: []
+     }
   end
 
   @doc """
